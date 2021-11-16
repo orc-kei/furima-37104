@@ -1,24 +1,48 @@
-# README
+furima-37104ER図
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| nickname           | string | null: false               |
+| name               | string | null: false               |
+| name_kana          | string | null: false               |
+| date_of_birth      | string | null: false               |
 
-* Ruby version
+## items テーブル
 
-* System dependencies
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| title         | text       | null: false                    |
+| description   | text       | null: false                    |
+| category      | string     | null: false                    |
+| condition     | string     | null: false                    |
+| delivery      | string     | null: false                    |
+| prefecture    | string     | null: false                    |
+| delivery_days | string     | null: false                    |
+| price         | integer    | null: false                    |
+| user          | references | null: false,foreign_key: true  |
 
-* Configuration
+## buys テーブル
 
-* Database creation
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| title        | text       | null: false                    |
+| price        | integer    | null: false                    |
+| user         | references | null: false, foreign_key: true |
+| item         | references | null: false, foreign_key: true |
 
-* Database initialization
+## address テーブル
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| postal_code  | string     | null: false                    |
+| prefecture   | string     | null: false                    |
+| city         | string     | null: false                    |
+| house_number | string     | null: false                    |
+| building     | string     | null: false                    |
+| phone_number | string     | null: false                    |
+| user         | references | null: false, foreign_key: true |
+| buy          | references | null: false,foreign_key: true  |
