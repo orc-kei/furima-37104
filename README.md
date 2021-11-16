@@ -23,7 +23,7 @@ furima-37104ER図
 
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
-| title           | text       | null: false                    |
+| title           | string     | null: false                    |
 | description     | text       | null: false                    |
 | category_id     | integer    | null: false                    |
 | condition_id    | integer    | null: false                    |
