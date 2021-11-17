@@ -1,5 +1,4 @@
 class Item < ApplicationRecord
-
   validates :title,            presence: true
   validates :description,      presence: true
   validates :category_id,      presence: true
@@ -11,5 +10,4 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one    :buy
-
 end
