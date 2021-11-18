@@ -41,8 +41,7 @@ RSpec.describe User, type: :model do
       another_user.valid?
       expect(another_user.errors.full_messages).to include("Email has already been taken")
     end
- 
-    it 'passwordが5文字以下では登録できない' do
+     it 'passwordが5文字以下では登録できない' do
       @user.password = '00000'
       @user.password_confirmation = '00000'
       @user.valid?
@@ -73,37 +72,30 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Birthday can't be blank")
     end
-    it 'passwordは英数字混合でないと登録できない' do
-      @user.password = 'aaaaaa'
-      @user.valid?
-      expect(@user.errors.full_messages).to include()
-    end
     it 'emailに@が含まれていない場合登録できない' do
       @user.email = 'hogehuga.com'
       @user.valid?
       expect(@user.errors.full_messages).to include('Email is invalid')
     end
-    # 名前全角入力のテスト ▼
-    it 'family_nameが全角入力でなければ登録できないこと' do
-      @user.family_name= "ｱｲｳｴｵ" # 意図的に半角入力を行いエラーを発生させる
+        it 'family_nameが全角入力でなければ登録できないこと' do
+      @user.family_name = "a" 
       @user.valid?
-      expect(@user.errors.full_messages).to include
+      expect(@user.errors.full_messages).to include("Family name is invalid")
     end
     it 'first_nameが全角入力でなければ登録できないこと' do
-      @user.first_name= "ｱｲｳｴｵ" # 意図的に半角入力を行いエラーを発生させる
+      @user.first_name= "a" 
       @user.valid?
-      expect(@user.errors.full_messages).to include()
+      expect(@user.errors.full_messages).to include("First name is invalid")
     end
-    # カタカナ全角入力のテスト ▼
     it 'family_name_kanaが全角カタカナでなければ登録できないこと' do
-      @user.family_name_kana = "あああああ"
+      @user.family_name_kana = "a"
       @user.valid?
-      expect(@user.errors.full_messages).to include()
+      expect(@user.errors.full_messages).to include("Family name kana is invalid")
     end
     it 'first_name_kanaが全角カタカナでなければ登録できないこと' do
-      @user.first_name_kana = "ああああああ" 
+      @user.first_name_kana = "aaa" 
       @user.valid?
-      expect(@user.errors.full_messages).to include()
+      expect(@user.errors.full_messages).to include("First name kana is invalid")
     end
     it '英字のみのパスワードでは登録できない' do
       @user.password = 'aaaaaa'
@@ -117,7 +109,7 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include  ("Password is invalid")
     end
     it '全角文字を含むパスワードでは登録できない' do
-      @user.password = 'ああああああ0'
+      @user.password = 'a000000'
       @user.valid?
       expect(@user.errors.full_messages).to include  ('Password is invalid')
     end
