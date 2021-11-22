@@ -10,7 +10,6 @@ extend ActiveHash::Associations::ActiveRecordExtensions
  validates :prefecture_id,    numericality: { other_than: 0 , message: "can't be blank" }
  validates :delivery_day_id,  numericality: { other_than: 1 , message: "can't be blank" }
  validates :price,            presence: true
- validates :price, numericality: { with: /\A[0-9]+\z/}
  validates :price,
            numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'Out of setting range' }
 

@@ -41,8 +41,18 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
+      it 'category「---」が選択されている場合は出品できない' do
+        @item.category_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
       it 'conditionが空だと出品できない' do
         @item.condition_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
+      end
+      it 'condition「---」が選択されている場合は出品できない' do
+        @item.condition_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
@@ -51,13 +61,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery fee can't be blank")
       end
+      it 'delivery_fee「---」が選択されている場合は出品できない' do
+        @item.delivery_fee_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery fee can't be blank")
+      end
       it 'prefecture_idが空だと出品できない' do
         @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
+      it 'prefecture_id「---」が選択されている場合は出品できない' do
+        @item.prefecture_id = '0'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+      end
       it 'delivery_day_idが空だと出品できない' do
         @item.delivery_day_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery day can't be blank")
+      end
+      it 'delivery_day_id「---」が選択されている場合は出品できない' do
+        @item.delivery_day_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery day can't be blank")
       end
@@ -72,9 +97,14 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price Out of setting range")
       end
       it '販売価格は半角数字のみ保存可能であること' do
-        @price = '１００００'
+        @item.price = '１００００'
         @item.valid?
-        expect(@item.errors.full_messages).to include()
+        expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+      it '価格が9_999_999円を超えると出品できない' do
+        @item.price = '10000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Out of setting range")
       end
     end
   end
