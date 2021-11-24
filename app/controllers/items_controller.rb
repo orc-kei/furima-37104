@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: :new
+  before_action :set_prototype, except: [:index, :new, :create]
+  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :move_to_index, only: [:edit, :destroy]
 
   def index
     @items = Item.includes(:user).order("created_at DESC")
@@ -16,25 +18,43 @@ class ItemsController < ApplicationController
     else
       render :new
     end
+  end
 
     def show
       @item = Item.find(params[:id])
     end
-
+ 
     def edit
       @item = Item.find(params[:id])
     end
 
     def update
-      item = Item.find(params[:id])
-      item.update(item_params)
-    end
-  end
+      @item = Item.find(params[:id])
+      @item.update(item_params)
+
+      if @item.update(item_params)
+         redirect_to item_path
+     else
+       render :edit
+     end
+   end
   
   private
 
   def item_params
     params.require(:item).permit(:image, :title, :description, :category_id, :condition_id, :delivery_fee_id, :prefecture_id, :delivery_day_id,:price).merge(user_id: current_user.id)
-end
+  end
+
+  def set_prototype
+    @item = Item.find(params[:id])
+  end
+
+  def move_to_index
+  if  current_user == @item.user
+    render :edit
+  else
+    redirect_to root_path
+  end
+ end
 end
 
