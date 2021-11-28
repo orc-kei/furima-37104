@@ -32,6 +32,8 @@
     <%# /支払額の表示 %>
     <%= form_with model: @buy_address, url: item_buys_path, id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
     <%# カード情報の入力 %>
+        <%= render 'shared/error_messages', model: @buy_address, object: f.object %>
+
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
         クレジットカード情報入力
@@ -109,14 +111,14 @@
           <label class="form-text">建物名</label>
           <span class="form-any">任意</span>
         </div>
-        <%= f.text_field :build, class:"input-default", id:"building", placeholder:"例）柳ビル103"%>
+        <%= f.text_field :building, class:"input-default", id:"building", placeholder:"例）柳ビル103"%>
       </div>
       <div class="form-group">
         <div class='form-text-wrap'>
           <label class="form-text">電話番号</label>
           <span class="indispensable">必須</span>
         </div>
-        <%= f.text_field :phone_mumber, class:"input-default", id:"phone-number", placeholder:"例）09012345678",maxlength:"11"%>
+        <%= f.text_field :phone_number, class:"input-default", id:"phone-number", placeholder:"例）09012345678",maxlength:"11"%>
       </div>
     </div>
     <%# /配送先の入力 %>
