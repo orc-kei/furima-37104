@@ -56,6 +56,9 @@ class ItemsController < ApplicationController
   def move_to_index
    unless current_user == @item.user
     redirect_to root_path
+   else@item.buy.present?
+    redirect_to root_path
+
 
   end
  end
