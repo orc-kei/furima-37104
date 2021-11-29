@@ -13,7 +13,7 @@ RSpec.describe Item, type: :model do
         expect(@item).to be_valid
       end
       it 'ログイン状態のユーザーのみ、商品出品ページへ遷移できること' do
-        @item = FactoryBot.create(:user)
+        item = FactoryBot.create(:user)
         expect(@item).to be_valid
       end
     end
