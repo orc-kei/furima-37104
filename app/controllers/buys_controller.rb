@@ -9,12 +9,7 @@ class BuysController < ApplicationController
   def create
     @buy_address = BuyAddress.new(buy_params)
     if @buy_address.valid?
-      Payjp.api_key = "sk_test_58c2a350bf7c721837c43ee2"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
-      Payjp::Charge.create(
-        amount: @item.price,  # 商品の値段
-        card: buy_params[:token],    # カードトークン
-        currency: 'jpy'                 # 通貨の種類（日本円）
-      )
+      pay_item
       @buy_address.save
       redirect_to root_path 
     else
@@ -31,4 +26,14 @@ class BuysController < ApplicationController
   def buy_params
     params.require(:buy_address).permit(:postal_code, :prefecture_id, :city, :house_number, :building, :phone_number).merge(user_id: current_user.id, item_id: @item.id,token: params[:token])
   end
+
+  def pay_item
+    Payjp.api_key = "sk_test_58c2a350bf7c721837c43ee2"  
+      Payjp::Charge.create(
+        amount: @item.price, 
+        card: buy_params[:token],  
+        currency: 'jpy'               
+      )
+  end
+  
 end
