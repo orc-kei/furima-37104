@@ -8,14 +8,6 @@ RSpec.describe BuyAddress, type: :model do
       @buy_address = FactoryBot.build(:buy_address, user_id: user.id, item_id: item.id)
     end
 
-    context '内容に問題ない場合' do
-      it 'buildingは空でも保存できること' do
-        @buy_address.building = ''
-        @buy_address.valid?
-        expect(@buy_address.errors.full_messages).to include("Item can't be blank")
-      end
-    end
-
     context '内容に問題がある場合' do
       it "tokenが空では登録できないこと" do
         @buy_address.token = nil
@@ -40,7 +32,7 @@ RSpec.describe BuyAddress, type: :model do
       it 'cityが空だと保存できないこと' do
           @buy_address.city = ''
           @buy_address.valid?
-          expect(@buy_address.errors.full_messages).to include("City can't be blank")
+          expect(@buy_address.errors.full_messages).to include("Item can't be blank", "City can't be blank")
       end
       it 'house_numberが空だと保存できないこと' do
           @buy_address.house_number = ''
