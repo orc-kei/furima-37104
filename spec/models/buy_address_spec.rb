@@ -60,6 +60,11 @@ RSpec.describe BuyAddress, type: :model do
           @buy_address.valid?
           expect(@buy_address.errors.full_messages).to include("Phone number is invalid")
         end
+        it 'phone_numberに半角数字以外が含まれている場合はは購入できない' do
+          @buy_address.phone_number = '0901111555a'
+          @buy_address.valid?
+          expect(@buy_address.errors.full_messages).to include("Phone number is invalid")
+        end
         it 'phone_numberが12桁以上では購入できない' do
           @buy_address.phone_number = '0901111222234'
           @buy_address.valid?

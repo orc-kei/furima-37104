@@ -20,4 +20,3 @@ class BuyAddress
     Address.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, house_number: house_number, building: building, phone_number: phone_number, buy_id: buy.id)
   end
 end
-/\A[0-9]+\z/

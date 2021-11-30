@@ -30,9 +30,7 @@ class BuysController < ApplicationController
   end
 
   def move_to_root_path
-    if current_user == @item.user 
-      redirect_to root_path
-    elsif @item.buy.present?
+    if current_user == @item.user || @item.buy != nil
       redirect_to root_path
     end
   end
