@@ -3,8 +3,6 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   before do
     @item = FactoryBot.build(:item)
-    @item.image = fixture_file_upload('app/assets/images/star.png')
-
   end
 
   describe '出品機能' do
@@ -13,7 +11,7 @@ RSpec.describe Item, type: :model do
         expect(@item).to be_valid
       end
       it 'ログイン状態のユーザーのみ、商品出品ページへ遷移できること' do
-        @item = FactoryBot.create(:user)
+        item = FactoryBot.create(:user)
         expect(@item).to be_valid
       end
     end
