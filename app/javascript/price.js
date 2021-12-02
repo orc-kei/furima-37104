@@ -1,6 +1,5 @@
 function pullDown() {
   const priceInput = document.getElementById("item-price");
-  debugger;
 
   priceInput.addEventListener("input", () => {
     const inputValue = priceInput.value;
